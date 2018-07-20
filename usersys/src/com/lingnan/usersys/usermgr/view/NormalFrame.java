@@ -74,12 +74,15 @@ public class NormalFrame extends IndexFrame {
 						switch(i){
 						case 1:
 							this.updateShow("修改密码", user);
+							this.searchShow();
 							break;
 						case 2:
 							this.updateShow("修改日期", user);
+							this.searchShow();
 							break;
 						case 3:
 							this.updateShow("修改邮箱", user);
+							this.searchShow();
 							break;
 						case 4:
 							//退出当前界面

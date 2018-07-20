@@ -253,6 +253,44 @@ import com.lingnan.usersys.usermgr.domain.UserVO;
 			List<UserVO> list= new ArrayList<UserVO>();
 			try {
 				//调用连接对象的prepareStatement方法，得到预编译对象，赋值给预编译对象变量
+				pstat=conn.prepareStatement("select * from T_user ");
+				//调用预编译对象的executeQuery方法，执行查询操作，返回查询结果，赋值给结果集对象变量
+				rs=pstat.executeQuery();
+				while(rs.next()){
+					//创建一个新用户对象，赋值给用户对象变量
+					  UserVO=new UserVO();
+					 UserVO.setId(rs.getInt("id"));
+					 UserVO.setUserid(rs.getString("userid"));
+					 UserVO.setUsername(rs.getString("username"));
+					 UserVO.setPassword(rs.getString("password"));
+					 UserVO.setMail(rs.getString("mail"));
+					 UserVO.setPower(rs.getString("power"));
+					 UserVO.setBirth(rs.getDate("birth"));
+					 UserVO.setStatus(rs.getString("status"));
+					 list.add(UserVO);
+
+				}
+			} catch (SQLException e) {
+				throw new DaoException("查询所有用户数据出错",e);			
+			}
+			finally{
+				DBUtils.closeStatement(rs, pstat);
+			}				
+			return list;
+		}
+		/**
+		 * 查询所有有效的用户
+		 */
+		@Override
+		public List<UserVO> finUserAllStatus() {
+			//声明预编译的声明对象变量，用于进行数据库操作的载体
+			PreparedStatement pstat=null;
+			//声明结果集对象变量，用于保存数据库查询结果
+			ResultSet rs=null;		
+			UserVO  UserVO=null;
+			List<UserVO> list= new ArrayList<UserVO>();
+			try {
+				//调用连接对象的prepareStatement方法，得到预编译对象，赋值给预编译对象变量
 				pstat=conn.prepareStatement("select * from T_user where  status=1");
 				//调用预编译对象的executeQuery方法，执行查询操作，返回查询结果，赋值给结果集对象变量
 				rs=pstat.executeQuery();
@@ -289,7 +327,7 @@ import com.lingnan.usersys.usermgr.domain.UserVO;
 			//声明变量，用于保存数据库更新结果
 			try {
 				//调用连接对象的prepareStatement方法，得到预编译对象，赋值给预编译对象变量
-				pstat=conn.prepareStatement("delete from  T_user  where id=?");	
+				pstat=conn.prepareStatement("update  T_user set status='0'  where id=?");	
 				//调用预编译对象的setXXX方法，给？号赋值
 				pstat.setInt(1, id);	
 				pstat.executeUpdate(); 

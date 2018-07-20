@@ -48,6 +48,11 @@ public interface UserDao extends BaseDao {
 	 */
 	public List<UserVO> finUserAll();
 	/**
+	 * 查询所有有效的用户信息
+	 * @return list结果集
+	 */
+	public List<UserVO> finUserAllStatus();
+	/**
 	 * 修改更新用户信息
 	 * @param user 用户信息
 	 * @return flag

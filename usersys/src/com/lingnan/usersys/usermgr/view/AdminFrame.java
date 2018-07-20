@@ -108,11 +108,12 @@ public class AdminFrame extends NormalFrame{
  		//循环操作
    		while(true){	
 	 			//用户登录和注册页面
-	 			System.out.println("查询全部用户----------------------------1");
-	 			System.out.println("根据id查询用户--------------------------2");
-	 			System.out.println("根据姓名查询用户------------------------3");
-	 			System.out.println("指定页面查询用户------------------------4");
-	 			System.out.println("退出该界面------------------------------5");
+	 			System.out.println("查询全部用户-----------------------------1");
+	 			System.out.println("查询所有有效用户--------------------------2");
+	 			System.out.println("根据id查询用户----------------------------3");
+	 			System.out.println("根据姓名查询用户--------------------------4");
+	 			System.out.println("指定页面查询用户--------------------------5");
+	 			System.out.println("退出该界面--------------------------------6");
 	 			System.out.println("请输入要做的操作:");
 	 			int i=-1;
 	 			while(true){
@@ -132,15 +133,18 @@ public class AdminFrame extends NormalFrame{
 	 				this.findUserAllShow();
 	 				break;
 	 			case 2:
+	 					this.findUserAllStatusShow();
+	 					break;
+	 			case 3:
 	 				this.findUserByIdShow();
 	 				break;
-	 			case 3:
+	 			case 4:
 	 				this.findUserByNameShow();
 	 				break;
-	 			case 4:
+	 			case 5:
 	 				this.findUsersByPageShow();
 	 				break;
-	 			case 5:
+	 			case 6:
 	 				System.out.println("欢迎您的使用");
 	 				//退出当前界面
 	 				this.show();
@@ -178,7 +182,7 @@ public class AdminFrame extends NormalFrame{
 		switch(i){
 		case 1:
 			this.updateUserShow("修改密码", user);
-			break;
+			break;		
 		case 2:
 			this.updateUserShow("修改日期", user);
 			break;
@@ -215,7 +219,8 @@ public class AdminFrame extends NormalFrame{
 				System.out.println("查询成功");
 				System.out.println("==============================================================================================================");
 				 System.out.println("编号：\t"+user.getId()+"  用户编号：\t"+user.getUserid()+"  用户名：\t"+user.getUsername()
-						   +"  用户密码：\t"+user.getPassword()+"  邮箱：\t"+user.getMail()+"  权限：\t"+user.getPower()+"  出生日期：\t"+user.getBirth());
+						   +"  用户密码：\t"+user.getPassword()+"  邮箱：\t"+user.getMail()+"  权限：\t"+user.getPower()+"  出生日期：\t"+user.getBirth()
+						   +"  状态：\t"+user.getStatus());
 			}
 			else{
 				System.out.println("查询失败,");
@@ -243,7 +248,8 @@ public class AdminFrame extends NormalFrame{
 				System.out.println("==============================================================================================================");
 				for(UserVO user :list){		  
 				 System.out.println("编号："+user.getId()+"  用户编号："+user.getUserid()+"  用户名："+user.getUsername()	
-						 +"  用户密码："+user.getPassword()+"  邮箱："+user.getMail()+	 "  权限："+user.getPower()+	"   出生日期："+user.getBirth());
+						 +"  用户密码："+user.getPassword()+"  邮箱："+user.getMail()+	 "  权限："+user.getPower()+	"   出生日期："+user.getBirth()
+						 +"  状态："+user.getStatus());
 					}
 			}
 			else{
@@ -270,7 +276,34 @@ public class AdminFrame extends NormalFrame{
 	 				System.out.println("==============================================================================================================");
 	 				for(UserVO user :list){		  
 	 				 System.out.println("编号："+user.getId()+"  用户编号:"+user.getUserid()+"  用户名："+user.getUsername()
-	 						   +"  用户密码："+user.getPassword()+"   邮箱: "+user.getMail()+"  权限: "+user.getPower()+"  出生日期: "+user.getBirth());
+	 						   +"  用户密码："+user.getPassword()+"   邮箱: "+user.getMail()+"  权限: "+user.getPower()+"  出生日期: "+user.getBirth()+"  状态："+user.getStatus());
+	 				 System.out.println("==============================================================================================================");
+	 					}
+	 			}
+	 			else{
+	 				System.out.println("查询失败,");
+	 			}
+	 		} catch (Exception e) {
+	 			e.printStackTrace();
+	 		}
+   }
+   /**
+    * 查询所有有效用户信息页面
+    */
+   public void findUserAllStatusShow(){
+	 //声明缓冲处理流对象，用于接收控制台输入的数据
+	 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	 		try {
+	 			List<UserVO> list= new ArrayList<UserVO>();
+	 			//调用控制器中的doRegister方法，进行用户登录操作
+	 			UserController uc=new UserController();
+	 			list=uc.dofindUserAllStatus();
+	 			if(list!=null){
+	 				System.out.println("查询成功");
+	 				System.out.println("==============================================================================================================");
+	 				for(UserVO user :list){		  
+	 				 System.out.println("编号："+user.getId()+"  用户编号:"+user.getUserid()+"  用户名："+user.getUsername()
+	 						   +"  用户密码："+user.getPassword()+"   邮箱: "+user.getMail()+"  权限: "+user.getPower()+"  出生日期: "+user.getBirth()+"  状态："+user.getStatus());
 	 				 System.out.println("==============================================================================================================");
 	 					}
 	 			}
@@ -301,7 +334,7 @@ public class AdminFrame extends NormalFrame{
 	 				System.out.println("==============================================================================================================");
 	 				for(UserVO user :list){		  
 	 				 System.out.println("编号："+user.getId()+"  用户编号："+user.getUserid()+"  用户名："+user.getUsername()	
-	 						 +"  用户密码："+user.getPassword()+"  邮箱："+user.getMail()+	 "  权限："+user.getPower()+	"   出生日期："+user.getBirth());
+	 						 +"  用户密码："+user.getPassword()+"  邮箱："+user.getMail()+	 "  权限："+user.getPower()+	"   出生日期："+user.getBirth()+"  状态：\t"+user.getStatus());
 	 				System.out.println("==============================================================================================================");
 	 					}
 	 			}

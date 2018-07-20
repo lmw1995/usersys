@@ -107,6 +107,20 @@ public class UserController {
 		return list;		
 	}
 	/**
+	 * 查询所有有效用户信息
+	 * @return list结果集
+	 */
+	public List<UserVO> dofindUserAllStatus(){
+		List<UserVO> list=null;
+		try{
+			//调用用户service接口中的findUserAll方法，进行用户查询
+		list=userMgrService.finUserAllStatus();
+		}catch(Exception e){
+			System.out.println("查询所有用户信息的时候出错了"+e.getMessage());
+		}
+		return list;		
+	}
+	/**
 	 * 删除用户
 	 * @param id 用户id
 	 * @return flag

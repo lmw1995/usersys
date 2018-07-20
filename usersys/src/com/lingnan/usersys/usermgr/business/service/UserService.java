@@ -40,6 +40,11 @@ public interface UserService {
 	 */
 	public List<UserVO> findUserAll();
 	/**
+	 * 查询所有有效的用户信息
+	 * @return list结果集
+	 */
+	public List<UserVO> finUserAllStatus();
+	/**
 	 * 更新修改用户信息
 	 * @param user 用户信息
 	 * @return flag

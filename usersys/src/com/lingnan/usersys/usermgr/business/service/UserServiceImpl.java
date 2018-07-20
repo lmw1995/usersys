@@ -243,6 +243,41 @@ public class UserServiceImpl implements UserService{
 				return list;		
 			}
 	/**
+	 * 查询所有有效用户
+	 */
+	@Override
+	public List<UserVO> finUserAllStatus() {
+		//声明数据库连接对象，用于保存数据库连接对象
+		Connection conn=null;
+		List<UserVO> list=null;
+		try{
+			//调用数据库工具类的getConnection方法，取得数据库连接对象，并赋值给数据库连接对象变量
+			conn=DBUtils.getConnection();
+			//调用dao工厂类的getDao()方法，取得指定类型的dao接口的实现类。并赋值给dao接口变量
+			UserDao userMgrDao = (UserDao)DaoFactory.getDao(conn, EnumType.USER_DAO);
+			//调用数据库工具类的beginTransaction方法，开启事务
+			DBUtils.beginTransaction(conn);
+			//调用dao中的findUserAll方法，进行查询所有用户信息操作，结果赋值给list
+			list = userMgrDao.finUserAllStatus();
+			 //调用数据库工具类的commit方法，提交事务
+			 DBUtils.commit(conn);	
+		}//操作过程出现异常，调用数据库工具类的rollback方法，回滚事务
+				catch(DaoException e){
+					//将自定义异常抛出
+					throw e;
+				}
+				catch(Exception e){
+					DBUtils.rollback(conn);
+					//将异常封装成自定义异常并抛出
+					throw new ServiceException("查询所有用户信息失败",e);
+				}finally{
+					//关闭连接
+					DBUtils.closeConnection(conn);
+				}
+        //返回用户登陆结果		
+		return list;		
+	}
+	/**
 	 * 删除用户
 	 */
 	@Override
@@ -311,5 +346,6 @@ public class UserServiceImpl implements UserService{
         //返回用户登陆结果		
 		return list;		
 	}
+	
 	
 }
