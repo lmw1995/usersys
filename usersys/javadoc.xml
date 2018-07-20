@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="private" additionalparam=" -encoding utf-8 -charset utf-8 " author="true" classpath="D:\2018实训资料\用户管理系统jar包\ojdbc14.jar;D:\2018实训资料\用户管理系统jar包\6junit4\junit-4.12.jar;D:\2018实训资料\用户管理系统jar包\6junit4\hamcrest-all-1.3.jar" destdir="doc" doctitle="usersys工程APL文档" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.lingnan.usersys.usermgr.startproject" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
